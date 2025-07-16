@@ -1,5 +1,6 @@
-configfile: "config/config_hg38_all_cfdna_samples.yaml"
-configfile: "config/samples_all_cfdna_samples.yaml"
+configfile: "config/config_hg38_simulation_loo_all_controls.yaml"
+configfile: "config/samples_simulation_loo_all_controls.yaml"
+# make sure to change the log folder names!
 
 rule all:
   input: 
@@ -22,7 +23,7 @@ rule read_counter:
 	resources:
 		mem=4
 	log:
-		"logs/readDepth/{samples}.bin{binSize}.log"
+		"logs/readDepth_simulation_loo_all_controls/{samples}.bin{binSize}.log"
 	shell:
 		"{params.readCounter} {input} -c {params.chrs} -w {params.binSize} -q {params.qual} > {output} 2> {log}"
 
@@ -70,7 +71,7 @@ rule ichorCNA:
 	resources:
 		mem=4
 	log:
-		"logs/ichorCNA/{tumor}.log"	
+		"logs/ichorCNA_simulation_loo_all_controls/{tumor}.log"	
 	shell:
 		"Rscript {params.rscript} --id {params.id} --libdir {params.libdir} --WIG {input.tum} --gcWig {params.gcwig} --mapWig {params.mapwig} --normalPanel {params.normalpanel} --ploidy \"{params.ploidy}\" --normal \"{params.normal}\" --maxCN {params.maxCN} --includeHOMD {params.includeHOMD} --chrs \"{params.chrs}\" --chrTrain \"{params.chrTrain}\" --genomeStyle {params.genomeStyle} --genomeBuild {params.genomeBuild} --estimateNormal {params.estimateNormal} --estimatePloidy {params.estimatePloidy} --estimateScPrevalence {params.estimateClonality} --scStates \"{params.scStates}\" --centromere {params.centromere} --exons.bed {params.exons} --txnE {params.txnE} --txnStrength {params.txnStrength} --minMapScore {params.minMapScore} --fracReadsInChrYForMale {params.fracReadsChrYMale} --maxFracGenomeSubclone {params.maxFracGenomeSubclone} --maxFracCNASubclone {params.maxFracCNASubclone} --plotFileType {params.plotFileType} --plotYLim \"{params.plotYlim}\" --outDir {params.outDir} > {log} 2> {log}"
 

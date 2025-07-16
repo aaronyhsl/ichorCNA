@@ -1,1 +1,10 @@
 .DS_Store
+*.pdf
+*/.snakemake-tmp*
+*.log
+.Rproj.user/
+scripts/snakemake/results/
+scripts/snakemake/logs/
+scripts/snakemake/.snakemake
+scripts/snakemake/config/samples*
+scripts/snakemake/generate_samples_for_snakemake.ipynb

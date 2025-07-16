@@ -1,13 +1,10 @@
-configfile: "config/config_hg38_all_cfdna_samples.yaml"
-configfile: "config/samples_all_cfdna_samples.yaml"
+configfile: "config/config.yaml"
+configfile: "config/samples.yaml"
 
 rule all:
   input: 
-  	#expand("results/ichorCNA/{tumor}/{tumor}.cna.seg", tumor=config["samples"]),
-  	#expand("results/readDepth/{samples}.bin{binSize}.wig", samples=config["samples"], binSize=str(config["binSize"]))
-    expand("results/ichorCNA/{tumor}/{tumor}.cna.seg", tumor=list(config["samples"].keys())),
-    expand("results/readDepth/{samples}.bin{binSize}.wig", samples=list(config["samples"].keys()), binSize=str(config["binSize"]))
-
+  	expand("results/ichorCNA/{tumor}/{tumor}.cna.seg", tumor=config["samples"]),
+  	expand("results/readDepth/{samples}.bin{binSize}.wig", samples=config["samples"], binSize=str(config["binSize"]))
 
 rule read_counter:
 	input:
